@@ -1,6 +1,7 @@
 name: Build Index
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - "**/*.yml"
@@ -34,7 +35,7 @@ jobs:
         run: python scripts/build_index.py
 
       - name: Commit and push changes
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
